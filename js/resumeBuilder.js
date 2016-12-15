@@ -9,12 +9,12 @@ var Resume = {
 var bio = {
 	"name": "MoMo",
 	"role": "Full Stack Developer",
-	"bioPic": "images/portfolio.jpg",
+	"biopic": "images/portfolio.jpg",
 	"welcomeMessage": "Stay hungry, Stay foolish",
 	"contacts": {
 		"mobile": "12345678",
 		"email": "250299430@qq.com",
-		"GitHub": "https://github.com/PoBlue",
+		"github": "https://github.com/PoBlue",
 		"blog": "http://www.jianshu.com/users/81f7dcc6a98e/latest_articles",
 		"location": "广东"
 	},
@@ -28,20 +28,20 @@ var bio = {
 
 		var formatedMobile = HTMLmobile.replace(dataPlaceholder, bio.contacts.mobile);
 		var formatedEmail = HTMLemail.replace(dataPlaceholder, bio.contacts.email);
-		var formatedGitHub = HTMLgithub.replace(dataPlaceholder, bio.contacts.GitHub);
+		var formatedGitHub = HTMLgithub.replace(dataPlaceholder, bio.contacts.github);
 		var formatedLocation = HTMLlocation.replace(dataPlaceholder, bio.contacts.location);
 
 		$("#topContacts").append(formatedMobile,
 			formatedEmail,
 			formatedGitHub,
 			formatedLocation);
-		
+
 		$("#footerContacts").append(formatedMobile,
 			formatedEmail,
 			formatedGitHub,
 			formatedLocation);
 
-		var formatedBioPic = HTMLbioPic.replace(dataPlaceholder, bio.bioPic);
+		var formatedBioPic = HTMLbioPic.replace(dataPlaceholder, bio.biopic);
 		var formatedWelcomMsg = HTMLwelcomeMsg.replace(dataPlaceholder, bio.welcomeMessage);
 
 		$("#header").append(formatedBioPic, formatedWelcomMsg, HTMLskillsStart);
@@ -67,7 +67,7 @@ var work = {
 			"title": "Developer",
 			"employer": "FunnyCompany",
 			"date": "2016-10-13",
-			"location": "China",
+			"location": "上海",
 			"description": "Andorid Develop"
 		}
 	],
@@ -97,13 +97,13 @@ var projects = {
 			"title": "Online Resume",
 			"date": "2016-12-13",
 			"description": "A Resume website",
-			"images": "images/comingsoon.jpg"
+			"images": ["images/comingsoon.jpg"]
 		},
 		{
 			"title": "Portfolio Site",
 			"date": "2016-12-10",
 			"description": "A Portfolio Site",
-			"images": "images/comingsoon.jpg"
+			"images": ["images/comingsoon.jpg"]
 		}
 	],
 
@@ -114,12 +114,17 @@ var projects = {
 			var formatedTitle = HTMLprojectTitle.replace(dataPlaceholder, project.title);
 			var formatedDate = HTMLprojectDates.replace(dataPlaceholder, project.date);
 			var formatedDescription = HTMLprojectDescription.replace(dataPlaceholder, project.description);
-			var formatedImages = HTMLprojectImage.replace(dataPlaceholder, project.images);
+
+			var imagesHtml = "";
+			project.images.forEach(function(image) {
+				var formatedImage = HTMLprojectImage.replace(dataPlaceholder, image);
+				imagesHtml = imagesHtml + formatedImage;
+			});
 
 			template.append(formatedTitle,
 				formatedDate,
 				formatedDescription,
-				formatedImages);
+				imagesHtml);
 
 			$("#projects").append(template);
 		});
@@ -132,16 +137,16 @@ var education = {
 			"name": "abc school",
 			"location": "China",
 			"degree": "programmer",
-			"majors": "CS",
+			"majors": ["CS"],
 			"dates": "2012-09-01",
 			"url" : "http://abc.com"
 		}
 	],
-	"onlineCourse": [
+	"onlineCourses": [
 		{
 			"title": "Front-End",
 			"school": "Udacity",
-			"date": "2016-12-01",
+			"dates": "2016-12-01",
 			"url": "http://udacity.com"
 		}
 	],
@@ -154,24 +159,30 @@ var education = {
   		var formatedDegree = HTMLschoolDegree.replace(dataPlaceholder, school.degree);
   		var formatedDates = HTMLschoolDates.replace(dataPlaceholder, school.dates);
   		var formatedLocation = HTMLworkLocation.replace(dataPlaceholder, school.location);
-  		var formatedMajor = HTMLschoolMajor.replace(dataPlaceholder, school.majors);
+
+  		var majorsHtml = "";
+  		school.majors.forEach(function(major) {
+  			var formatedMajor = HTMLschoolMajor.replace(dataPlaceholder, major);
+  			majorsHtml = majorsHtml + formatedMajor;
+  		});
 
   		template.append(formatedName + formatedDegree,
   			formatedDates,
   			formatedLocation,
-  			formatedMajor);
+  			majorsHtml);
   		$("#education").append(template);
   	});
 
 
 		$("#education").append(HTMLonlineClasses);
-		education.onlineCourse.forEach(function(onlineClass) {
+		education.onlineCourses.forEach(function(onlineClass) {
 			var template = $(HTMLonlineStart);
 
 			var formatedTitle = HTMLonlineTitle.replace(dataPlaceholder, onlineClass.title);
 			var formatedSchool = HTMLonlineSchool.replace(dataPlaceholder, onlineClass.school);
-			var formatedDate = HTMLprojectDates.replace(dataPlaceholder, onlineClass.date);
+			var formatedDate = HTMLprojectDates.replace(dataPlaceholder, onlineClass.dates);
 			var formatedUrl = HTMLonlineURL.replace(dataPlaceholder, onlineClass.url);
+			var formatedUrl = formatedUrl.replace("#", onlineClass.url);
 
 			template.append(formatedTitle + formatedSchool,
 				formatedDate,
@@ -186,3 +197,5 @@ bio.display();
 work.display();
 projects.display();
 education.display();
+
+$("#mapDiv").append(googleMap);
