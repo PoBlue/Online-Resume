@@ -143,6 +143,7 @@ var education = {
       var template = $(HTMLschoolStart);
 
       var formatedName = HTMLschoolName.replace(dataPlaceholder, school.name);
+      formatedName = formatedName.replace('#', school.url);
       var formatedDegree = HTMLschoolDegree.replace(dataPlaceholder, school.degree);
       var formatedDates = HTMLschoolDates.replace(dataPlaceholder, school.dates);
       var formatedLocation = HTMLworkLocation.replace(dataPlaceholder, school.location);
